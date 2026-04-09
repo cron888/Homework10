@@ -11,10 +11,11 @@ public class Main {
         System.out.println(); // Разделитель
 
         // Задача 2: Рекомендация версии приложения
-        suggestAppVersion(0, 2013); // iOS, старое устройство
-        suggestAppVersion(1, 2013); // Android, старое устройство
-        suggestAppVersion(0, 2020); // iOS, новое устройство
-        suggestAppVersion(1, 2020); // Android, новое устройство
+        suggestAppVersion(0, 2013); // iOS, старое устройство → облегчённая
+        suggestAppVersion(1, 2013); // Android, старое устройство → облегчённая
+        suggestAppVersion(0, 2015); // iOS, 2015 год → обычная
+        suggestAppVersion(1, 2015); // Android, 2015 год → обычная
+        suggestAppVersion(0, 2020); // iOS, новое устройство → обычная
 
         System.out.println(); // Разделитель
 
@@ -42,21 +43,23 @@ public class Main {
     }
 
     /**
-     * Рекомендует версию приложения в зависимости от ОС и года устройства.
+     * Рекомендует версию приложения в зависимости от ОС и года выпуска устройства.
+     * Устройства до 2015 года — облегчённая версия.
+     * Начиная с 2015 года — обычная версия.
      * @param clientOS 0 — iOS, 1 — Android
      * @param clientDeviceYear год выпуска устройства
      */
     public static void suggestAppVersion(int clientOS, int clientDeviceYear) {
-        int currentYear = LocalDate.now().getYear();
-        boolean isOldDevice = clientDeviceYear < currentYear;
         String osName = clientOS == 0 ? "iOS" : "Android";
-        String baseMessage = "Установите приложение для " + osName + " по ссылке";
+        String message;
 
-        if (isOldDevice) {
-            baseMessage = "Установите облегченную версию приложения для " + osName + " по ссылке";
+        if (clientDeviceYear < 2015) {
+            message = "Установите облегченную версию приложения для " + osName + " по ссылке";
+        } else {
+            message = "Установите приложение для " + osName + " по ссылке";
         }
 
-        System.out.println(baseMessage);
+        System.out.println(message);
     }
 
     /**
